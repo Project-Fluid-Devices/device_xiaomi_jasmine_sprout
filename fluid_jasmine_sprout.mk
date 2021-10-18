@@ -7,8 +7,18 @@
 # Inherit device configuration
 $(call inherit-product, device/xiaomi/jasmine_sprout/device.mk)
 
-# Inherit ShapeShiftOS product configuration
-$(call inherit-product, vendor/ssos/config/common_full_phone.mk)
+# Inherit Project Fluid product configuration
+$(call inherit-product, vendor/fluid/config/common_full_phone.mk)
+
+# Gapps
+ifeq ($(WITH_GAPPS),true)
+TARGET_INCLUDE_GAPPS := true
+TARGET_GAPPS_ARCH := arm64
+TARGET_SUPPORTS_STOCK_ARCORE := true
+TARGET_INCLUDE_LIVE_WALLPAPERS := true
+endif
+
+PRODUCT_GMS_CLIENTID_BASE := android-xiaomi
 
 # Define first api level
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
@@ -17,35 +27,23 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/product_launched_with_o_mr1.mk
 
 # Build Description
 PRODUCT_BUILD_PROP_OVERRIDES += \
-    PRIVATE_BUILD_DESC="jasmine-user 9 PKQ1.180904.001 V10.0.9.0.PDIMIXM release-keys" \
+    PRIVATE_BUILD_DESC="redfin-user 12 SPB5.210812.002 7671067 release-keys" \
     PRODUCT_NAME="jasmine_sprout" \
     TARGET_DEVICE="jasmine_sprout"
 
 # Build Fingerprint
-BUILD_FINGERPRINT := "xiaomi/wayne/wayne:8.1.0/OPM1.171019.011/V9.5.11.0.ODCCNFA:user/release-keys"
+BUILD_FINGERPRINT := "google/redfin/redfin:12/SPB5.210812.002/7671067:user/release-keys"
 
 # Device identifier
 PRODUCT_BRAND := Xiaomi
 PRODUCT_MANUFACTURER := Xiaomi
-PRODUCT_NAME := ssos_jasmine_sprout
+PRODUCT_NAME := fluid_jasmine_sprout
 PRODUCT_DEVICE := jasmine_sprout
 PRODUCT_MODEL := Mi A2
 
-# Inherit ShapeShiftOS Official build stuff.
-SSOS_BUILD_TYPE := OFFICIAL
-TARGET_FACE_UNLOCK_SUPPORTED := true
+# Inherit Project Fluid Official build stuff.
+FLUID_BUILD_TYPE := OFFICIAL
 TARGET_BOOT_ANIMATION_RES := 1080
-
-PRODUCT_PRODUCT_PROPERTIES += \
-  ro.ssos.cpu=SDM660
-
-# Gapps
-IS_PHONE := true
-TARGET_GAPPS_ARCH := arm64
-TARGET_SUPPORTS_GOOGLE_RECORDER := true
-TARGET_INCLUDE_STOCK_ARCORE := true
-
-PRODUCT_GMS_CLIENTID_BASE := android-xiaomi
 
 # TWRP Support
 BUILD_TWRP := true
